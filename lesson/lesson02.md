@@ -45,15 +45,15 @@
     - [Инициализация и загрузка классов](https://www.youtube.com/watch?v=TdvnGw_KcFY) (youtube)
 
 ## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) [Домашнее задание HW2](https://drive.google.com/open?id=0B_4NpoQW1xfpWUxUVWx5MFpCZkE)
-> Правка к видео: в `ArrayStorage.delete()` вместо `storage[i] = null` нужно записать `storage[size - 1] = null`
+> Правка к видео: в `com.mich.webapp.storage.ArrayStorage.delete()` вместо `storage[i] = null` нужно записать `storage[size - 1] = null`
 
 - Еще раз прочитайте, [как правильно оформлять код](https://drive.google.com/file/d/1BfVe2KaUxWCAB8R3RKSyM8tmWZBv-J-9/view?usp=sharing)
 - [Настройте IDEA](https://stackoverflow.com/a/30634421) на автоматическое удаление неиспользуемых импортов
-- Реализуйте и протестируйте `ArrayStorage.update(Resume resume)`
+- Реализуйте и протестируйте `com.mich.webapp.storage.ArrayStorage.update(com.mich.webapp.model.Resume resume)`
 - Сделайте проверки:
   - в `update/delete/get` - резюме есть в `storage`?
   - в `save`- резюме нет в `storage`?
   - сделайте в `save` проверку на переполнение
-  - выведите соответствующие предупреждения для всех, указанных выше проверок - `System.out.println("Resume ...")`
-- Избавьтесь от дублирования в коде `ArrayStorage`
+  - выведите соответствующие предупреждения для всех, указанных выше проверок - `System.out.println("com.mich.webapp.model.Resume ...")`
+- Избавьтесь от дублирования в коде `com.mich.webapp.storage.ArrayStorage`
 - Посмотрите на методы класса `java.util.Arrays`. Некоторые из них помогут упростить реализацию ваших методов `clear()` и `getAll()`

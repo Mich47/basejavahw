@@ -79,7 +79,7 @@
 
 ![finish](https://user-images.githubusercontent.com/29703461/38275669-3e621614-379b-11e8-8b3a-8e0a3ad4c65c.png)
 
-- Реализуйте класс `ArrayStorage`, организовав хранение резюме на основе массива с методами `save, get, delete, size, clear, getAll`
+- Реализуйте класс `com.mich.webapp.storage.ArrayStorage`, организовав хранение резюме на основе массива с методами `save, get, delete, size, clear, getAll`
 - При этом храните все резюме в начале `storage` (без дырок в виде `null`), чтобы не перебирать каждый раз все 10000 элементов
 ```
 Схема хранения резюме в storage (от 0 до size - 1 элементов null нет):
@@ -87,7 +87,7 @@ r1, r2, r3,..., rn, null, null,..., null
 <----- size ----->
 <------- storage.length (10000) ------->
 ```
-- Протестируйте вашу реализацию с помощью классов `MainArray.main()` и `MainTestArrayStorage.main()`
+- Протестируйте вашу реализацию с помощью классов `com.mich.webapp.MainArray.main()` и `com.mich.webapp.MainTestArrayStorage.main()`
 - Изучите дополнительные материалы по IntelliJ IDEA:
   - [Idea Wiki](https://github.com/JavaOPs/topjava/wiki/IDEA) ([поставьте кодировку UTF-8](https://github.com/JavaOPs/topjava/wiki/IDEA#Поставить-кодировку-utf-8), [поменяйте шрифт по умолчанию на DejaVu](https://github.com/JavaOPs/topjava/wiki/IDEA#Поменять-фонт-по-умолчанию-dejavu))
   - [Руководство пользователя IntelliJ IDEA. Отладчик](http://info.javarush.ru/idea_help/2014/01/22/Руководство-пользователя-IntelliJ-IDEA-Отладчик-.html)
@@ -111,5 +111,5 @@ r1, r2, r3,..., rn, null, null,..., null
 1. Не злоупотребляйте пустыми строками — выработай какой-то единый стиль их написания
 1. Удаляйте неиспользуемые импорты (`Ctrl + Alt + O`)
 1. Не игнорируйте подсказки IDEA (подсвечивает)
-1. `Resume r` — давайте переменным осмысленные имена, например `resume`. `r` допустимо в коротких циклах и лямбдах
-1. В методе `clear()` обнуление массива предполагает обнуление (null) ячеек, где хранятся Resume, а не создание нового или присваивание ему null
+1. `com.mich.webapp.model.Resume r` — давайте переменным осмысленные имена, например `resume`. `r` допустимо в коротких циклах и лямбдах
+1. В методе `clear()` обнуление массива предполагает обнуление (null) ячеек, где хранятся com.mich.webapp.model.Resume, а не создание нового или присваивание ему null
