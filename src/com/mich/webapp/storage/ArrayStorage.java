@@ -7,22 +7,22 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[3];
+public class ArrayStorage implements Storage{
+    private static final int STORAGE_LIMIT = 3;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
 
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume r) {
-        int i = indexOfUuid(r.getUuid());
-        if (i >= 0) {
+        if (indexOfUuid(r.getUuid()) >= 0) {
             System.out.println("ERROR: Item is present!");
         } else {
-            if (size < storage.length) {
+            if (size < STORAGE_LIMIT) {
                 storage[size] = r;
                 size++;
             } else {
@@ -72,8 +72,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] storageNew = Arrays.copyOf(storage, size);
-        return storageNew;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {

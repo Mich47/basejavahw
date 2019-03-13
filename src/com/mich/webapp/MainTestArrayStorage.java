@@ -2,12 +2,13 @@ package com.mich.webapp;
 
 import com.mich.webapp.model.Resume;
 import com.mich.webapp.storage.ArrayStorage;
+import com.mich.webapp.storage.Storage;
 
 /**
  * Test for your com.mich.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
@@ -38,7 +39,7 @@ public class MainTestArrayStorage {
         System.out.println("Size: " + ARRAY_STORAGE.size());
     }
 
-    static void printAll() {
+    private static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : ARRAY_STORAGE.getAll()) {
             System.out.println(r);
