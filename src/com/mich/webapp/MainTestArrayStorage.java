@@ -1,24 +1,24 @@
 package com.mich.webapp;
 
 import com.mich.webapp.model.Resume;
-import com.mich.webapp.storage.ArrayStorage;
+import com.mich.webapp.storage.SortedArrayStorage;
 import com.mich.webapp.storage.Storage;
 
 /**
  * Test for your com.mich.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private final static Storage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
-        r1.setUuid("uuid1");
+        r1.setUuid("uuid2");
         Resume r2 = new Resume();
-        r2.setUuid("uuid2");
+        r2.setUuid("uuid1");
         Resume r3 = new Resume();
         r3.setUuid("uuid3");
         Resume r4 = new Resume();
-        r4.setUuid("uuid4");
+        r4.setUuid("uuid0");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
