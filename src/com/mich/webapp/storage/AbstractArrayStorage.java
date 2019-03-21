@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage implements Storage {
-    private static final int STORAGE_LIMIT = 5;
+    protected static final int STORAGE_LIMIT = 5;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
@@ -18,15 +18,15 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume r) {
-        int index = indexOfUuid(r.getUuid());
-        if (index >= 0) {
-            System.out.println("ERROR: Item is present!");
+        if (size == STORAGE_LIMIT) {
+            System.out.println("ERROR: The Array is full!");
         } else {
-            if (size < STORAGE_LIMIT) {
+            int index = indexOfUuid(r.getUuid());
+            if (index >= 0) {
+                System.out.println("ERROR: Item is present!");
+            } else {
                 insertItem(r, index);
                 size++;
-            } else {
-                System.out.println("ERROR: The Array is full!");
             }
         }
     }
@@ -49,6 +49,7 @@ public abstract class AbstractArrayStorage implements Storage {
                 System.out.println("ERROR: Item not found!");
             } else {
                 deleteItem(i);
+                storage[size - 1] = null;
                 size--;
             }
         }
@@ -61,6 +62,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("ERROR: Item not found!");
         } else {
             deleteItem(uuidNum - 1);
+            storage[size - 1] = null;
             size--;
         }
     }
