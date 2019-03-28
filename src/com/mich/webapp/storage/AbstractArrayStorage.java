@@ -1,5 +1,8 @@
 package com.mich.webapp.storage;
 
+import com.mich.webapp.exception.ExistStorageException;
+import com.mich.webapp.exception.NotExistStorageException;
+import com.mich.webapp.exception.StorageException;
 import com.mich.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -19,49 +22,55 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume r) {
         if (size == STORAGE_LIMIT) {
-            System.out.println("ERROR: The Array is full!");
+            throw new StorageException("ERROR: The Storage is full!", r.getUuid());
         } else {
             int index = indexOfUuid(r.getUuid());
             if (index >= 0) {
-                System.out.println("ERROR: Item is present!");
+                throw new ExistStorageException(r.getUuid());
             } else {
-                insertItem(r, index);
+                insertResume(r, index);
                 size++;
             }
         }
     }
 
-    public void update(String uuid) {
-        int i = indexOfUuid(uuid);
-        if (i >= 0) {
-            storage[i].setUuid(uuid);
+    public void update(Resume r) {
+        if (size == 0) {
+            throw new StorageException("ERROR: Storage is empty!", "");
         } else {
-            System.out.println("ERROR: Item is NOT present!");
+            int i = indexOfUuid(r.getUuid());
+            if (i >= 0) {
+                storage[i] = r;
+            } else {
+                throw new NotExistStorageException(r.getUuid());
+            }
         }
     }
 
+    //Overload
     public void delete(String uuid) {
         if (size == 0) {
-            System.out.println("ERROR: Array is empty!");
+            throw new StorageException("ERROR: Storage is empty!", uuid);
         } else {
             int i = indexOfUuid(uuid);
             if (i < 0) {
-                System.out.println("ERROR: Item not found!");
+                throw new NotExistStorageException(uuid);
             } else {
-                deleteItem(i);
+                deleteResume(i);
                 storage[size - 1] = null;
                 size--;
             }
         }
     }
 
+    //Overload
     public void delete(int uuidNum) {
         if (size == 0) {
-            System.out.println("ERROR: Array is empty!");
+            throw new StorageException("ERROR: Storage is empty!", "");
         } else if ((uuidNum < 1) || (uuidNum > size)) {
-            System.out.println("ERROR: Item not found!");
+            throw new NotExistStorageException("");
         } else {
-            deleteItem(uuidNum - 1);
+            deleteResume(uuidNum - 1);
             storage[size - 1] = null;
             size--;
         }
@@ -71,17 +80,27 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
+    //Overload
     public Resume get(String uuid) {
         if (size == 0) {
-            System.out.println("ERROR: Array is empty!");
-            return null;
+            throw new StorageException("ERROR: Storage is empty!", uuid);
         }
         int i = indexOfUuid(uuid);
         if (i < 0) {
-            System.out.println("ERROR: Item not found!");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[i];
+    }
+
+    //Overload
+    public Resume get(int uuidNum) {
+        if (size == 0) {
+            throw new StorageException("ERROR: Storage is empty!", "");
+        } else if ((uuidNum < 1) || (uuidNum > size)) {
+            throw new NotExistStorageException("");
+        } else {
+            return storage[uuidNum - 1];
+        }
     }
 
     /**
@@ -93,7 +112,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract int indexOfUuid(String uuid);
 
-    protected abstract void insertItem(Resume r, int index);
+    protected abstract void insertResume(Resume r, int index);
 
-    protected abstract void deleteItem(int index);
+    protected abstract void deleteResume(int index);
 }

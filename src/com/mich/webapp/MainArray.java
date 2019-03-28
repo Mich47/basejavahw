@@ -1,5 +1,7 @@
 package com.mich.webapp;
 
+import com.mich.webapp.exception.NotExistStorageException;
+import com.mich.webapp.exception.StorageException;
 import com.mich.webapp.model.Resume;
 import com.mich.webapp.storage.SortedArrayStorage;
 import com.mich.webapp.storage.Storage;
@@ -19,7 +21,7 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | save uuid | update uuid | del uuid | del# uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | save uuid | update uuid | del uuid | del# uuid | get uuid | get# uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 2) {
                 System.out.println("Неверная команда.");
@@ -37,13 +39,13 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    ARRAY_STORAGE.update(uuid);
+                    r = new Resume(uuid);
+                    ARRAY_STORAGE.update(r);
                     printAll();
                     break;
                 case "del":
@@ -55,12 +57,20 @@ public class MainArray {
                         int i = Integer.parseInt(uuid);
                         ARRAY_STORAGE.delete(i);
                         printAll();
-                    } catch (Exception e) {
-                        System.out.println("Неверная команда.");
+                    } catch (StorageException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "get":
                     System.out.println(ARRAY_STORAGE.get(uuid));
+                    break;
+                case "get#":
+                    try {
+                        int i = Integer.parseInt(uuid);
+                        System.out.println(ARRAY_STORAGE.get(i));
+                    } catch (StorageException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();

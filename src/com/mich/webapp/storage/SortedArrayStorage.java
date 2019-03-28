@@ -8,12 +8,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected int indexOfUuid(String uuid) {
-        Resume searchKey = new Resume();
-        searchKey.setUuid(uuid);
+        Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
-    protected void insertItem(Resume r, int index) {
+    @Override
+    protected void insertResume(Resume r, int index) {
         //http://codereview.stackexchange.com/questions/36221/binary-search-for-inserting-in-array#answer-36239
         index = - index - 1;
         System.arraycopy(storage, index, storage, index + 1, size - index);
@@ -21,7 +21,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void deleteItem(int index) {
+    protected void deleteResume(int index) {
         int numMoved = size - index - 1;
         if (numMoved > 0) {
             System.arraycopy(storage, index + 1, storage, index, numMoved);

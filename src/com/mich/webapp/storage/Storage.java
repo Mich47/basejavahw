@@ -11,12 +11,18 @@ public interface Storage {
 
     void save(Resume r);
 
-    void update(String uuid);
+    void update(Resume r);
 
+    //Overload
     Resume get(String uuid);
 
+    //Overload
+    Resume get(int uuidNum);
+
+    //Overload
     void delete(String uuid);
 
+    //Overload
     void delete(int uuid);
 
     /**
