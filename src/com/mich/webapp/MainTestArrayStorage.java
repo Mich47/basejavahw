@@ -1,6 +1,8 @@
 package com.mich.webapp;
 
 import com.mich.webapp.model.Resume;
+import com.mich.webapp.storage.ListStorage;
+import com.mich.webapp.storage.MapStorage;
 import com.mich.webapp.storage.SortedArrayStorage;
 import com.mich.webapp.storage.Storage;
 
@@ -8,7 +10,7 @@ import com.mich.webapp.storage.Storage;
  * Test for your com.mich.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private final static Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid2");

@@ -3,6 +3,7 @@ package com.mich.webapp;
 import com.mich.webapp.exception.NotExistStorageException;
 import com.mich.webapp.exception.StorageException;
 import com.mich.webapp.model.Resume;
+import com.mich.webapp.storage.MapStorage;
 import com.mich.webapp.storage.SortedArrayStorage;
 import com.mich.webapp.storage.Storage;
 
@@ -15,7 +16,7 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private final static Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

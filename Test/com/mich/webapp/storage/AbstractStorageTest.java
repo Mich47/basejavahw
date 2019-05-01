@@ -8,21 +8,28 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
 
     protected Storage storage;
 
-    private static final String UUID_1 = "uuid3";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid1";
+    protected static final String UUID_1 = "uuid3";
+    protected static final String UUID_2 = "uuid2";
+    protected static final String UUID_3 = "uuid1";
     private static final String UUID_4 = "uuid4";
 
-    protected static final Resume RESUME_1 = new Resume(UUID_1);
-    protected static final Resume RESUME_2 = new Resume(UUID_2);
-    protected static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    protected static final Resume RESUME_1;
+    protected static final Resume RESUME_2;
+    protected static final Resume RESUME_3;
+    private static final Resume RESUME_4;
 
-    protected AbstractArrayStorageTest(Storage storage) {
+    static {
+        RESUME_1 = new Resume(UUID_1);
+        RESUME_2 = new Resume(UUID_2);
+        RESUME_3 = new Resume(UUID_3);
+        RESUME_4 = new Resume(UUID_4);
+    }
+
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -52,17 +59,6 @@ public abstract class AbstractArrayStorageTest {
         storage.save(RESUME_1);
     }
 
-    @Test(expected = StorageException.class)
-    public void overflow() {
-        try {
-            for (int i = storage.size(); i < ArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assert.fail();
-        }
-        storage.save(new Resume());
-    }
 
     @Test
     public void update() {

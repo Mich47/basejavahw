@@ -17,13 +17,13 @@ public interface Storage {
     Resume get(String uuid);
 
     //Overload
-    Resume get(int uuidNum);
+    Resume get(Integer searchKey);
 
     //Overload
     void delete(String uuid);
 
     //Overload
-    void delete(int uuid);
+    void delete(Integer searchKey);
 
     /**
      * @return array, contains only Resumes in storage (without null)
