@@ -2,8 +2,10 @@ package com.mich.webapp.storage;
 
 import com.mich.webapp.exception.ExistStorageException;
 import com.mich.webapp.exception.NotExistStorageException;
-import com.mich.webapp.exception.StorageException;
 import com.mich.webapp.model.Resume;
+
+import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
@@ -21,6 +23,8 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(Object searchKey);
 
+    protected abstract List<Resume> doCopyAll();
+
     public void save(Resume r) {
         Object searchKey = getNotExistedSearchKey(r.getUuid());
         doSave(r, searchKey);
@@ -31,26 +35,26 @@ public abstract class AbstractStorage implements Storage {
         doUpdate(r, searchKey);
     }
 
-    //Overload
+    @Override
     public void delete(String uuid) {
         Object searchKey = getExistedSearchKey(uuid);
         doDelete(searchKey);
     }
 
-    //Overload
+    @Override
     public void delete(Integer searchKey) {
         isNotOutSideSearchKey(searchKey);
         searchKey--;
         doDelete(searchKey);
     }
 
-    //Overload
+    @Override
     public Resume get(String uuid) {
         Object searchKey = getExistedSearchKey(uuid);
         return doGet(searchKey);
     }
 
-    //Overload
+    @Override
     public Resume get(Integer searchKey) {
         isNotOutSideSearchKey(searchKey);
         searchKey--;
@@ -79,5 +83,10 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
-
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> list = doCopyAll();
+        Collections.sort(list);
+        return list;
+    }
 }

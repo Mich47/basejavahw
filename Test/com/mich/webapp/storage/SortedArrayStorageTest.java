@@ -1,26 +1,16 @@
 package com.mich.webapp.storage;
 
-import com.mich.webapp.exception.StorageException;
 import com.mich.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SortedArrayStorageTest extends AbstractStorageTest{
+import java.util.Arrays;
+import java.util.List;
+
+public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     public SortedArrayStorageTest() {
         super(new SortedArrayStorage());
-    }
-
-    @Test(expected = StorageException.class)
-    public void overflow() {
-        try {
-            for (int i = storage.size(); i < ArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assert.fail();
-        }
-        storage.save(new Resume());
     }
 
     @Test
@@ -28,14 +18,5 @@ public class SortedArrayStorageTest extends AbstractStorageTest{
         Assert.assertEquals(RESUME_3, storage.get(1));
         Assert.assertEquals(RESUME_2, storage.get(2));
         Assert.assertEquals(RESUME_1, storage.get(3));
-    }
-
-    @Test
-    public void getAll() {
-        Resume[] array = storage.getAll();
-        Assert.assertEquals(3, array.length);
-        Assert.assertEquals(RESUME_3, array[0]);
-        Assert.assertEquals(RESUME_2, array[1]);
-        Assert.assertEquals(RESUME_1, array[2]);
     }
 }

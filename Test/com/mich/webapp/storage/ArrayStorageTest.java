@@ -1,25 +1,12 @@
 package com.mich.webapp.storage;
 
-import com.mich.webapp.exception.StorageException;
-import com.mich.webapp.model.Resume;
+import com.mich.webapp.exception.NotExistStorageException;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ArrayStorageTest extends AbstractStorageTest{
+public class ArrayStorageTest extends AbstractArrayStorageTest {
     public ArrayStorageTest() {
         super(new ArrayStorage());
-    }
-
-    @Test(expected = StorageException.class)
-    public void overflow() {
-        try {
-            for (int i = storage.size(); i < ArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assert.fail();
-        }
-        storage.save(new Resume());
     }
 
     @Test
@@ -30,12 +17,15 @@ public class ArrayStorageTest extends AbstractStorageTest{
     }
 
     @Test
-    public void getAll() {
-        Resume[] array = storage.getAll();
-        Assert.assertEquals(3, array.length);
-        Assert.assertEquals(RESUME_1, array[0]);
-        Assert.assertEquals(RESUME_2, array[1]);
-        Assert.assertEquals(RESUME_3, array[2]);
+    public void deleteNum() {
+        storage.delete(1);
+        Assert.assertEquals(2, storage.size());
+    }
+
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNumNotExist() {
+        storage.delete(5);
     }
 }
 
