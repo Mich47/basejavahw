@@ -2,6 +2,7 @@ package com.mich.webapp.storage;
 
 import com.mich.webapp.model.Resume;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,9 +16,9 @@ public interface Storage {
 
     void update(Resume r);
 
-    Resume get(String uuid);
+    Resume get(String uuid) throws IOException;
 
-    Resume get(Integer searchKey);
+    Resume get(Integer searchKey) throws IOException;
 
     void delete(String uuid);
 

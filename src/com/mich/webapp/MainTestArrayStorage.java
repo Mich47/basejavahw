@@ -4,13 +4,15 @@ import com.mich.webapp.model.Resume;
 import com.mich.webapp.storage.MapUuidStorage;
 import com.mich.webapp.storage.Storage;
 
+import java.io.IOException;
+
 /**
  * Test for your com.mich.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     private final static Storage ARRAY_STORAGE = new MapUuidStorage();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Resume r1 = new Resume("uuid2", "Name2");
         Resume r2 = new Resume("uuid1", "Name1");
         Resume r3 = new Resume("uuid3", "Name3");

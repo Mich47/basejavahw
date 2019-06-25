@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 5;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -27,22 +27,22 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doSave(Resume r, Object index) {
+    protected void doSave(Resume r, Integer index) {
         isFull();
-        insertResume(r, (Integer) index);
+        insertResume(r, index);
         size++;
     }
 
     @Override
-    protected void doUpdate(Resume r, Object index) {
+    protected void doUpdate(Resume r, Integer index) {
         isEmpty();
-        storage[(Integer) index] = r;
+        storage[index] = r;
     }
 
     @Override
-    protected void doDelete(Object index) {
+    protected void doDelete(Integer index) {
         isEmpty();
-        deleteResume((Integer) index);
+        deleteResume(index);
         storage[size - 1] = null;
         size--;
     }
@@ -52,9 +52,24 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object index) {
+    protected Resume doGet(Integer index) {
         isEmpty();
-        return storage[(Integer) index];
+        return storage[index];
+    }
+
+    @Override
+    protected boolean isOutSide(Integer index) {
+        return (index < 1) || (index > size);
+    }
+
+    @Override
+    protected boolean isExist(Integer index) {
+        return index >= 0;
+    }
+
+    @Override
+    public List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     private void isEmpty() {
@@ -69,18 +84,4 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    @Override
-    protected boolean isOutSide(Object index) {
-        return ((int) index < 1) || ((int) index > size);
-    }
-
-    @Override
-    protected boolean isExist(Object index) {
-        return (Integer) index >= 0;
-    }
-
-    @Override
-    public List<Resume> doCopyAll() {
-        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
-    }
 }

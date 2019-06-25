@@ -1,11 +1,8 @@
 package com.mich.webapp.storage;
 
-import com.mich.webapp.exception.ExistStorageException;
-import com.mich.webapp.exception.NotExistStorageException;
 import com.mich.webapp.exception.StorageException;
 import com.mich.webapp.model.Resume;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
